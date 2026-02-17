@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Налог на имущество - Salyq Calc</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-content">
+                <div class="logo">
+                    <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="20" cy="20" r="18" stroke="#1a1a1a" stroke-width="2"/>
+                        <path d="M20 8 L28 15 L25 25 L15 25 L12 15 Z" fill="#e8dcc4" stroke="#1a1a1a" stroke-width="1.5"/>
+                        <circle cx="20" cy="20" r="3" fill="#1a1a1a"/>
+                    </svg>
+                    <span>Salyq Calc</span>
+                </div>
+                <div class="nav-links">
+                    <a href="index.html">Главная</a>
+                    <a href="transport.html">Транспорт</a>
+                    <a href="property.html" class="active">Имущество</a>
+                    <a href="land.html">Земля</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Calculator Section -->
+    <section class="calculator-page">
+        <div class="container">
+            <div class="page-header">
+                <h1>Калькулятор налога на имущество</h1>
+                <p>Рассчитайте налог на недвижимость физических лиц в Казахстане</p>
+            </div>
+
+            <div class="calculator-wrapper">
+                <div class="calculator-form">
+                    <form id="propertyForm">
+                        <div class="form-group">
+                            <label>Метод расчёта</label>
+                            <select id="calculationMethod" required>
+                                <option value="">Выберите метод</option>
+                                <option value="value">По стоимости имущества</option>
+                                <option value="area">По площади (квартира/дом)</option>
+                            </select>
+                        </div>
+
+                        <!-- Value-based calculation -->
+                        <div id="valueFields" class="conditional-fields" style="display: none;">
+                            <div class="form-group">
+                                <label>Стоимость имущества (тенге)</label>
+                                <input type="number" id="propertyValue" placeholder="Например: 15000000" min="0" step="1000">
+                                <small>Введите оценочную стоимость недвижимости</small>
+                            </div>
+                        </div>
+
+                        <!-- Area-based calculation -->
+                        <div id="areaFields" class="conditional-fields" style="display: none;">
+                            <div class="form-group">
+                                <label>Тип недвижимости</label>
+                                <select id="propertyType">
+                                    <option value="apartment">Квартира</option>
+                                    <option value="house">Жилой дом</option>
+                                    <option value="dacha">Дача</option>
+                                    <option value="garage">Гараж</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Общая площадь (м²)</label>
+                                <input type="number" id="totalArea" placeholder="Например: 75" min="0" step="0.1">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Населённый пункт</label>
+                                <select id="cityType">
+                                    <option value="astana">Астана</option>
+                                    <option value="almaty">Алматы</option>
+                                    <option value="regional">Областной центр</option>
+                                    <option value="district">Районный центр</option>
+                                    <option value="rural">Сельская местность</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>
+                                <input type="checkbox" id="hasBenefits">
+                                У меня есть льготы по налогу на имущество
+                            </label>
+                            <small>Пенсионеры, инвалиды и другие категории граждан имеют право на льготы</small>
+                        </div>
+
+                        <button type="submit" class="btn-primary btn-large">Рассчитать налог</button>
+                        <button type="button" class="btn-secondary btn-large" id="resetBtn">Очистить</button>
+                    </form>
+                </div>
+
+                <div class="calculator-result" id="resultSection" style="display: none;">
+                    <div class="result-card">
+                        <h3>Результат расчёта</h3>
+                        <div class="result-main">
+                            <span class="result-label">Сумма налога на имущество:</span>
+                            <span class="result-value" id="taxAmount">0 ₸</span>
+                        </div>
+                        <div class="result-details" id="resultDetails"></div>
+                        <div class="result-info">
+                            <p><strong>Важно:</strong> Расчёт является ориентировочным. Точную сумму налога можно узнать в налоговом органе по месту нахождения имущества.</p>
+                        </div>
+                    </div>
+
+                    <div class="info-card">
+                        <h4>Сроки уплаты</h4>
+                        <ul>
+                            <li>Налоговый период — календарный год</li>
+                            <li>Срок уплаты — до 1 октября года, следующего за отчётным</li>
+                            <li>Уплачивается по месту нахождения имущества</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tax Info -->
+            <div class="tax-info">
+                <h2>Справочная информация</h2>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <h3>Ставки налога</h3>
+                        <p>Налог на имущество физических лиц рассчитывается по прогрессивной шкале (2026 год):</p>
+                        <ul>
+                            <li><strong>До 52 млн ₸:</strong> освобождены от налога</li>
+                            <li><strong>52-104 млн ₸:</strong> 0,05% от суммы превышения</li>
+                            <li><strong>104-156 млн ₸:</strong> 26 000 ₸ + 0,07% от суммы превышения</li>
+                            <li><strong>Свыше 156 млн ₸:</strong> 62 400 ₸ + 0,1% от суммы превышения</li>
+                        </ul>
+                    </div>
+
+                    <div class="info-item">
+                        <h3>Налог по площади</h3>
+                        <p>Для объектов без оценочной стоимости налог рассчитывается исходя из площади (2026 год):</p>
+                        <ul>
+                            <li>Используется ставка за 1 м²</li>
+                            <li>Ставка зависит от населённого пункта</li>
+                            <li>Астана, Алматы — 240 ₸/м²</li>
+                            <li>Шымкент — 180 ₸/м²</li>
+                            <li>Областные центры — 140 ₸/м²</li>
+                            <li>Сельская местность — 55 ₸/м²</li>
+                        </ul>
+                    </div>
+
+                    <div class="info-item">
+                        <h3>Льготы</h3>
+                        <p>От налога на имущество освобождаются:</p>
+                        <ul>
+                            <li>Инвалиды I и II групп</li>
+                            <li>Пенсионеры по возрасту</li>
+                            <li>Многодетные матери (4 и более детей)</li>
+                            <li>Герои СССР, РК и др.</li>
+                        </ul>
+                        <p><small>Льготы предоставляются на один объект недвижимости</small></p>
+                    </div>
+
+                    <div class="info-item">
+                        <h3>Объекты налогообложения</h3>
+                        <p>Налогом облагаются:</p>
+                        <ul>
+                            <li>Жилые дома и квартиры</li>
+                            <li>Дачные постройки</li>
+                            <li>Гаражи и машино-места</li>
+                            <li>Объекты незавершённого строительства</li>
+                            <li>Иные здания, строения, сооружения</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Salyq Calc. Все права защищены.</p>
+        </div>
+    </footer>
+
+    <script src="js/property.js"></script>
+</body>
+</html>

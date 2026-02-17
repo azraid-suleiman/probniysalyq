@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Транспортный налог - Salyq Calc</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-content">
+                <div class="logo">
+                    <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="20" cy="20" r="18" stroke="#1a1a1a" stroke-width="2"/>
+                        <path d="M20 8 L28 15 L25 25 L15 25 L12 15 Z" fill="#e8dcc4" stroke="#1a1a1a" stroke-width="1.5"/>
+                        <circle cx="20" cy="20" r="3" fill="#1a1a1a"/>
+                    </svg>
+                    <span>Salyq Calc</span>
+                </div>
+                <div class="nav-links">
+                    <a href="index.html">Главная</a>
+                    <a href="transport.html" class="active">Транспорт</a>
+                    <a href="property.html">Имущество</a>
+                    <a href="land.html">Земля</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Calculator Section -->
+    <section class="calculator-page">
+        <div class="container">
+            <div class="page-header">
+                <h1>Калькулятор транспортного налога</h1>
+                <p>Рассчитайте транспортный налог согласно Налоговому Кодексу Республики Казахстан</p>
+            </div>
+
+            <div class="calculator-wrapper">
+                <div class="calculator-form">
+                    <form id="transportForm">
+                        <div class="form-group">
+                            <label>Тип транспортного средства</label>
+                            <select id="vehicleType" required>
+                                <option value="">Выберите тип</option>
+                                <option value="passenger">Легковые автомобили</option>
+                                <option value="truck">Грузовые автомобили</option>
+                                <option value="motorcycle">Мототранспорт</option>
+                                <option value="bus">Автобусы</option>
+                                <option value="special">Спецтехника</option>
+                                <option value="trailer">Прицепы</option>
+                            </select>
+                        </div>
+
+                        <!-- Passenger Car Fields -->
+                        <div id="passengerFields" class="conditional-fields" style="display: none;">
+                            <div class="form-group">
+                                <label>Объём двигателя (см³)</label>
+                                <input type="number" id="engineVolume" placeholder="Например: 2000" min="0">
+                                <small>Введите объём двигателя в кубических сантиметрах</small>
+                            </div>
+                        </div>
+
+                        <!-- Truck Fields -->
+                        <div id="truckFields" class="conditional-fields" style="display: none;">
+                            <div class="form-group">
+                                <label>Грузоподъёмность (тонн)</label>
+                                <input type="number" id="truckCapacity" placeholder="Например: 5" min="0" step="0.1">
+                            </div>
+                        </div>
+
+                        <!-- Motorcycle Fields -->
+                        <div id="motorcycleFields" class="conditional-fields" style="display: none;">
+                            <div class="form-group">
+                                <label>Объём двигателя (см³)</label>
+                                <input type="number" id="motorcycleVolume" placeholder="Например: 600" min="0">
+                            </div>
+                        </div>
+
+                        <!-- Bus Fields -->
+                        <div id="busFields" class="conditional-fields" style="display: none;">
+                            <div class="form-group">
+                                <label>Количество посадочных мест</label>
+                                <input type="number" id="busSeats" placeholder="Например: 40" min="1">
+                            </div>
+                        </div>
+
+                        <!-- Special Vehicle Fields -->
+                        <div id="specialFields" class="conditional-fields" style="display: none;">
+                            <div class="form-group">
+                                <label>Мощность двигателя (л.с.)</label>
+                                <input type="number" id="specialPower" placeholder="Например: 150" min="0">
+                            </div>
+                        </div>
+
+                        <!-- Trailer Fields -->
+                        <div id="trailerFields" class="conditional-fields" style="display: none;">
+                            <div class="form-group">
+                                <label>Грузоподъёмность прицепа (тонн)</label>
+                                <input type="number" id="trailerCapacity" placeholder="Например: 3" min="0" step="0.1">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Год выпуска транспортного средства</label>
+                            <input type="number" id="yearManufactured" placeholder="Например: 2020" min="1950" max="2025" required>
+                        </div>
+
+                        <button type="submit" class="btn-primary btn-large">Рассчитать налог</button>
+                        <button type="button" class="btn-secondary btn-large" id="resetBtn">Очистить</button>
+                    </form>
+                </div>
+
+                <div class="calculator-result" id="resultSection" style="display: none;">
+                    <div class="result-card">
+                        <h3>Результат расчёта</h3>
+                        <div class="result-main">
+                            <span class="result-label">Сумма транспортного налога:</span>
+                            <span class="result-value" id="taxAmount">0 ₸</span>
+                        </div>
+                        <div class="result-details" id="resultDetails"></div>
+                        <div class="result-info">
+                            <p><strong>Обратите внимание:</strong> Расчёт произведён на основе базовых ставок Налогового Кодекса РК. Фактическая сумма может отличаться в зависимости от региона и наличия льгот.</p>
+                        </div>
+                    </div>
+
+                    <div class="info-card">
+                        <h4>Порядок уплаты</h4>
+                        <ul>
+                            <li>Налоговый период — календарный год</li>
+                            <li>Срок уплаты — до 1 июля года, следующего за отчётным</li>
+                            <li>Уплачивается по месту регистрации транспортного средства</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tax Info -->
+            <div class="tax-info">
+                <h2>Справочная информация</h2>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <h3>Легковые автомобили</h3>
+                        <p><strong>Ставка:</strong> от 5 до 30 МРП в зависимости от объёма двигателя</p>
+                        <ul>
+                            <li>До 1500 см³ — 5 МРП</li>
+                            <li>1501-2000 см³ — 7 МРП</li>
+                            <li>2001-2500 см³ — 10 МРП</li>
+                            <li>2501-3000 см³ — 15 МРП</li>
+                            <li>3001-4000 см³ — 20 МРП</li>
+                            <li>Свыше 4000 см³ — 30 МРП</li>
+                        </ul>
+                    </div>
+
+                    <div class="info-item">
+                        <h3>Грузовые автомобили</h3>
+                        <p><strong>Ставка:</strong> от 7 до 25 МРП в зависимости от грузоподъёмности</p>
+                        <ul>
+                            <li>До 2 тонн — 7 МРП</li>
+                            <li>2-5 тонн — 10 МРП</li>
+                            <li>5-10 тонн — 15 МРП</li>
+                            <li>10-20 тонн — 20 МРП</li>
+                            <li>Свыше 20 тонн — 25 МРП</li>
+                        </ul>
+                    </div>
+
+                    <div class="info-item">
+                        <h3>Мототранспорт</h3>
+                        <p><strong>Ставка:</strong> от 2 до 8 МРП в зависимости от объёма двигателя</p>
+                        <ul>
+                            <li>До 250 см³ — 2 МРП</li>
+                            <li>250-500 см³ — 4 МРП</li>
+                            <li>500-750 см³ — 6 МРП</li>
+                            <li>Свыше 750 см³ — 8 МРП</li>
+                        </ul>
+                    </div>
+
+                    <div class="info-item">
+                        <h3>Автобусы</h3>
+                        <p><strong>Ставка:</strong> от 10 до 20 МРП в зависимости от количества мест</p>
+                        <ul>
+                            <li>До 20 мест — 10 МРП</li>
+                            <li>20-40 мест — 15 МРП</li>
+                            <li>Свыше 40 мест — 20 МРП</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="mrp-info">
+                    <strong>МРП на 2026 год:</strong> 4 246 тенге
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Salyq Calc. Все права защищены.</p>
+        </div>
+    </footer>
+
+    <script src="js/transport.js"></script>
+</body>
+</html>

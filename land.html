@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Земельный налог - Salyq Calc</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-content">
+                <div class="logo">
+                    <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="20" cy="20" r="18" stroke="#1a1a1a" stroke-width="2"/>
+                        <path d="M20 8 L28 15 L25 25 L15 25 L12 15 Z" fill="#e8dcc4" stroke="#1a1a1a" stroke-width="1.5"/>
+                        <circle cx="20" cy="20" r="3" fill="#1a1a1a"/>
+                    </svg>
+                    <span>Salyq Calc</span>
+                </div>
+                <div class="nav-links">
+                    <a href="index.html">Главная</a>
+                    <a href="transport.html">Транспорт</a>
+                    <a href="property.html">Имущество</a>
+                    <a href="land.html" class="active">Земля</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Calculator Section -->
+    <section class="calculator-page">
+        <div class="container">
+            <div class="page-header">
+                <h1>Калькулятор земельного налога</h1>
+                <p>Рассчитайте земельный налог на участок согласно НК РК</p>
+            </div>
+
+            <div class="calculator-wrapper">
+                <div class="calculator-form">
+                    <form id="landForm">
+                        <div class="form-group">
+                            <label>Категория земель</label>
+                            <select id="landCategory" required>
+                                <option value="">Выберите категорию</option>
+                                <option value="agricultural">Сельскохозяйственные земли</option>
+                                <option value="settlement">Земли населённых пунктов</option>
+                                <option value="industrial">Земли промышленности</option>
+                                <option value="forest">Земли лесного фонда</option>
+                                <option value="water">Земли водного фонда</option>
+                                <option value="reserve">Земли запаса</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Целевое назначение</label>
+                            <select id="landPurpose" required>
+                                <option value="">Выберите назначение</option>
+                                <!-- Options will be populated based on category -->
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Площадь участка (гектары)</label>
+                            <input type="number" id="landArea" placeholder="Например: 0.06 (6 соток)" min="0" step="0.01" required>
+                            <small>1 гектар = 100 соток = 10 000 м²</small>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Регион (область)</label>
+                            <select id="region" required>
+                                <option value="">Выберите регион</option>
+                                <option value="astana">г. Астана</option>
+                                <option value="almaty">г. Алматы</option>
+                                <option value="shymkent">г. Шымкент</option>
+                                <option value="akmola">Акмолинская область</option>
+                                <option value="aktobe">Актюбинская область</option>
+                                <option value="almaty-region">Алматинская область</option>
+                                <option value="atyrau">Атырауская область</option>
+                                <option value="vko">Восточно-Казахстанская область</option>
+                                <option value="zhambyl">Жамбылская область</option>
+                                <option value="zko">Западно-Казахстанская область</option>
+                                <option value="karaganda">Карагандинская область</option>
+                                <option value="kostanay">Костанайская область</option>
+                                <option value="kyzylorda">Кызылординская область</option>
+                                <option value="mangystau">Мангистауская область</option>
+                                <option value="pavlodar">Павлодарская область</option>
+                                <option value="sko">Северо-Казахстанская область</option>
+                                <option value="turkestan">Туркестанская область</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Базовая ставка (тенге за гектар)</label>
+                            <input type="number" id="baseRate" placeholder="Будет рассчитана автоматически" readonly>
+                            <small>Базовая ставка зависит от категории земель и региона</small>
+                        </div>
+
+                        <div class="form-group">
+                            <label>
+                                <input type="checkbox" id="hasBenefits">
+                                У меня есть льготы по земельному налогу
+                            </label>
+                        </div>
+
+                        <button type="submit" class="btn-primary btn-large">Рассчитать налог</button>
+                        <button type="button" class="btn-secondary btn-large" id="resetBtn">Очистить</button>
+                    </form>
+                </div>
+
+                <div class="calculator-result" id="resultSection" style="display: none;">
+                    <div class="result-card">
+                        <h3>Результат расчёта</h3>
+                        <div class="result-main">
+                            <span class="result-label">Сумма земельного налога:</span>
+                            <span class="result-value" id="taxAmount">0 ₸</span>
+                        </div>
+                        <div class="result-details" id="resultDetails"></div>
+                        <div class="result-info">
+                            <p><strong>Примечание:</strong> Расчёт произведён на основе базовых ставок. Фактическая сумма может варьироваться в зависимости от коэффициентов и местных особенностей.</p>
+                        </div>
+                    </div>
+
+                    <div class="info-card">
+                        <h4>Сроки уплаты</h4>
+                        <ul>
+                            <li>Налоговый период — календарный год</li>
+                            <li>Срок уплаты — до 1 октября года, следующего за отчётным</li>
+                            <li>Для юридических лиц — авансовые платежи ежеквартально</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tax Info -->
+            <div class="tax-info">
+                <h2>Справочная информация</h2>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <h3>Сельскохозяйственные земли</h3>
+                        <p>Базовая ставка зависит от качества почвы и расположения:</p>
+                        <ul>
+                            <li>Пахотные земли: 20-100 ₸/га</li>
+                            <li>Сенокосы: 10-50 ₸/га</li>
+                            <li>Пастбища: 5-30 ₸/га</li>
+                            <li>Залежные земли: 5-20 ₸/га</li>
+                        </ul>
+                        <p><small>Ставки корректируются коэффициентом качества почвы</small></p>
+                    </div>
+
+                    <div class="info-item">
+                        <h3>Земли населённых пунктов</h3>
+                        <p>Ставки зависят от населённого пункта и зоны:</p>
+                        <ul>
+                            <li>Астана, Алматы: 200-800 ₸/га</li>
+                            <li>Областные центры: 100-500 ₸/га</li>
+                            <li>Районные центры: 50-300 ₸/га</li>
+                            <li>Сельские населённые пункты: 20-100 ₸/га</li>
+                        </ul>
+                    </div>
+
+                    <div class="info-item">
+                        <h3>Промышленные земли</h3>
+                        <p>Земли для промышленных целей:</p>
+                        <ul>
+                            <li>Промышленность: 100-600 ₸/га</li>
+                            <li>Транспорт: 80-400 ₸/га</li>
+                            <li>Связь: 50-300 ₸/га</li>
+                            <li>Энергетика: 70-350 ₸/га</li>
+                        </ul>
+                    </div>
+
+                    <div class="info-item">
+                        <h3>Льготы по земельному налогу</h3>
+                        <p>Освобождаются от уплаты:</p>
+                        <ul>
+                            <li>Инвалиды I и II групп</li>
+                            <li>Многодетные матери</li>
+                            <li>Герои СССР и РК</li>
+                            <li>Участники ВОВ</li>
+                            <li>Организации инвалидов</li>
+                        </ul>
+                        <p><small>Льгота применяется на участки до 0,25 га в городах и до 1 га в сельской местности</small></p>
+                    </div>
+                </div>
+
+                <div class="conversion-helper">
+                    <h3>Помощник перевода площади</h3>
+                    <div class="conversion-grid">
+                        <div class="conversion-item">
+                            <strong>1 гектар =</strong>
+                            <ul>
+                                <li>100 соток</li>
+                                <li>10 000 м²</li>
+                                <li>2,47 акра</li>
+                            </ul>
+                        </div>
+                        <div class="conversion-item">
+                            <strong>1 сотка =</strong>
+                            <ul>
+                                <li>100 м²</li>
+                                <li>0,01 гектара</li>
+                            </ul>
+                        </div>
+                        <div class="conversion-item">
+                            <strong>Примеры:</strong>
+                            <ul>
+                                <li>6 соток = 0,06 га</li>
+                                <li>10 соток = 0,1 га</li>
+                                <li>15 соток = 0,15 га</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Salyq Calc. Все права защищены.</p>
+        </div>
+    </footer>
+
+    <script src="js/land.js"></script>
+</body>
+</html>

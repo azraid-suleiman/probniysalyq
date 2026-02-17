@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Salyq Calc - Калькулятор налогов Казахстана</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/auth.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-content">
+                <a href="index.html" class="logo">
+                    <svg width="40" height="40" viewBox="0 0 40 40" fill="none"><circle cx="20" cy="20" r="18" stroke="#1a1a1a" stroke-width="2"/><path d="M20 8 L28 15 L25 25 L15 25 L12 15 Z" fill="#e8dcc4" stroke="#1a1a1a" stroke-width="1.5"/><circle cx="20" cy="20" r="3" fill="#1a1a1a"/></svg>
+                    <span>Salyq Calc</span>
+                </a>
+                <div class="nav-links">
+                    <a href="index.html" class="active">Главная</a>
+                    <a href="#about">О сервисе</a>
+                    <a href="#contact">Контакты</a>
+                </div>
+                <div class="auth-buttons" id="authButtons">
+                    <button class="btn-secondary" id="loginBtn">Войти</button>
+                    <button class="btn-primary" id="registerBtn">Регистрация</button>
+                </div>
+                <div class="user-menu" id="userMenu" style="display:none;">
+                    <button class="user-avatar-btn" id="userAvatarBtn">
+                        <div class="avatar-circle" id="navAvatar"></div>
+                        <span id="navUserName"></span>
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+                    </button>
+                </div>
+                <div class="mobile-menu-toggle" id="mobileMenuToggle"><span></span><span></span><span></span></div>
+            </div>
+        </div>
+    </nav>
+
+    <div id="userDropdown" class="user-dropdown" style="display:none;">
+        <div class="dropdown-header">
+            <div class="dropdown-avatar" id="dropdownAvatar"></div>
+            <div class="dropdown-info">
+                <div class="dropdown-name" id="dropdownName"></div>
+                <div class="dropdown-email" id="dropdownEmail"></div>
+            </div>
+        </div>
+        <hr class="dropdown-divider">
+        <button class="dropdown-item" id="dropdownLogout">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+            Выйти
+        </button>
+    </div>
+
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Калькулятор налогов<br>Республики Казахстан</h1>
+                <p>Быстрый и точный расчёт транспортного налога, налога на имущество и земельного налога онлайн</p>
+                <div class="hero-stats">
+                    <div class="stat"><span class="stat-number">3</span><span class="stat-label">Калькулятора</span></div>
+                    <div class="stat"><span class="stat-number">100%</span><span class="stat-label">Бесплатно</span></div>
+                    <div class="stat"><span class="stat-number">2026</span><span class="stat-label">Актуальные ставки</span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="calculators">
+        <div class="container">
+            <h2>Выберите калькулятор</h2>
+            <div class="calculator-grid">
+                <div class="calculator-card">
+                    <div class="card-icon"><svg width="60" height="60" viewBox="0 0 60 60" fill="none"><rect x="10" y="20" width="40" height="20" rx="2" fill="#e8dcc4" stroke="#1a1a1a" stroke-width="2"/><circle cx="20" cy="45" r="5" fill="#1a1a1a"/><circle cx="40" cy="45" r="5" fill="#1a1a1a"/><path d="M15 20 L20 10 L40 10 L45 20" stroke="#1a1a1a" stroke-width="2" fill="none"/></svg></div>
+                    <h3>Транспортный налог</h3>
+                    <p>Расчёт налога на автомобили, мотоциклы, автобусы и другой транспорт</p>
+                    <ul class="features"><li>Легковые автомобили</li><li>Грузовые автомобили</li><li>Мототранспорт</li><li>Автобусы и спецтехника</li></ul>
+                    <a href="transport.html" class="btn-primary">Рассчитать</a>
+                </div>
+                <div class="calculator-card">
+                    <div class="card-icon"><svg width="60" height="60" viewBox="0 0 60 60" fill="none"><path d="M30 10 L50 25 L50 50 L10 50 L10 25 Z" fill="#e8dcc4" stroke="#1a1a1a" stroke-width="2"/><rect x="23" y="32" width="14" height="18" fill="#1a1a1a"/><rect x="18" y="25" width="8" height="8" fill="#1a1a1a"/><rect x="34" y="25" width="8" height="8" fill="#1a1a1a"/></svg></div>
+                    <h3>Налог на имущество</h3>
+                    <p>Расчёт налога на жилую и коммерческую недвижимость</p>
+                    <ul class="features"><li>По стоимости имущества</li><li>По площади квартиры/дома</li><li>Учёт льгот</li><li>Актуальные ставки 2026</li></ul>
+                    <a href="property.html" class="btn-primary">Рассчитать</a>
+                </div>
+                <div class="calculator-card">
+                    <div class="card-icon"><svg width="60" height="60" viewBox="0 0 60 60" fill="none"><rect x="10" y="15" width="40" height="35" rx="2" fill="#e8dcc4" stroke="#1a1a1a" stroke-width="2"/><path d="M15 30 Q20 25 25 30 T35 30 T45 30" stroke="#1a1a1a" stroke-width="2" fill="none"/><circle cx="22" cy="38" r="2" fill="#1a1a1a"/><circle cx="30" cy="42" r="2" fill="#1a1a1a"/><circle cx="38" cy="37" r="2" fill="#1a1a1a"/></svg></div>
+                    <h3>Земельный налог</h3>
+                    <p>Расчёт налога на земельные участки различного назначения</p>
+                    <ul class="features"><li>Сельскохозяйственные земли</li><li>Земли населённых пунктов</li><li>Промышленные земли</li><li>По базовым ставкам РК</li></ul>
+                    <a href="land.html" class="btn-primary">Рассчитать</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="about" id="about">
+        <div class="container">
+            <div class="about-content">
+                <h2>О сервисе Salyq Calc</h2>
+                <p>Salyq Calc — это бесплатный онлайн-сервис для расчёта налогов в Казахстане. Мы используем актуальные ставки Налогового Кодекса РК и помогаем вам быстро и точно рассчитать налоговые обязательства.</p>
+                <div class="features-grid">
+                    <div class="feature-item"><h4>Точность расчётов</h4><p>Используем официальные формулы и ставки НК РК</p></div>
+                    <div class="feature-item"><h4>Простота использования</h4><p>Интуитивный интерфейс и понятные инструкции</p></div>
+                    <div class="feature-item"><h4>Бесплатно</h4><p>Все калькуляторы доступны без регистрации</p></div>
+                    <div class="feature-item"><h4>Актуальность</h4><p>Регулярное обновление налоговых ставок</p></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="contact" id="contact">
+        <div class="container">
+            <h2>Контакты</h2>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <div class="contact-item"><strong>Email:</strong><a href="mailto:info@salyqcalc.kz">info@salyqcalc.kz</a></div>
+                    <div class="contact-item"><strong>Телефон:</strong><a href="tel:+77172000000">+7 (717) 200-00-00</a></div>
+                    <div class="social-links">
+                        <a href="#" class="social-link">Instagram</a>
+                        <a href="#" class="social-link">Facebook</a>
+                        <a href="#" class="social-link">Telegram</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Salyq Calc. Все права защищены.</p>
+            <p>Информация на сайте носит справочный характер и не является официальной налоговой консультацией.</p>
+        </div>
+    </footer>
+
+    <!-- LOGIN MODAL -->
+    <div id="loginModal" class="modal">
+        <div class="modal-backdrop" data-close="loginModal"></div>
+        <div class="modal-content auth-modal">
+            <button class="modal-close" data-close="loginModal">&times;</button>
+            <div class="modal-brand"><svg width="30" height="30" viewBox="0 0 40 40" fill="none"><circle cx="20" cy="20" r="18" stroke="#1a1a1a" stroke-width="2"/><path d="M20 8 L28 15 L25 25 L15 25 L12 15 Z" fill="#e8dcc4" stroke="#1a1a1a" stroke-width="1.5"/><circle cx="20" cy="20" r="3" fill="#1a1a1a"/></svg><span>Salyq Calc</span></div>
+            <h2>Добро пожаловать!</h2>
+            <p class="modal-subtitle">Войдите в свой аккаунт</p>
+            <div class="auth-alert" id="loginAlert" style="display:none;"></div>
+            <form id="loginForm" novalidate>
+                <div class="auth-field">
+                    <label for="loginEmail">Email адрес</label>
+                    <div class="input-wrap">
+                        <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                        <input type="email" id="loginEmail" placeholder="example@email.com" autocomplete="email">
+                    </div>
+                    <span class="field-error" id="loginEmailErr"></span>
+                </div>
+                <div class="auth-field">
+                    <label for="loginPassword">Пароль</label>
+                    <div class="input-wrap">
+                        <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                        <input type="password" id="loginPassword" placeholder="Введите пароль" autocomplete="current-password">
+                        <button type="button" class="toggle-pw" data-for="loginPassword" title="Показать"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button>
+                    </div>
+                    <span class="field-error" id="loginPasswordErr"></span>
+                </div>
+                <div class="auth-row">
+                    <label class="checkbox-label"><input type="checkbox" id="rememberMe"><span>Запомнить меня</span></label>
+                </div>
+                <button type="submit" class="btn-primary btn-auth" id="loginSubmit">
+                    <span class="btn-text">Войти</span>
+                    <span class="btn-loader" style="display:none;"></span>
+                </button>
+            </form>
+            <p class="modal-switch">Нет аккаунта? <a href="#" id="switchToRegister">Зарегистрироваться</a></p>
+        </div>
+    </div>
+
+    <!-- REGISTER MODAL -->
+    <div id="registerModal" class="modal">
+        <div class="modal-backdrop" data-close="registerModal"></div>
+        <div class="modal-content auth-modal">
+            <button class="modal-close" data-close="registerModal">&times;</button>
+            <div class="modal-brand"><svg width="30" height="30" viewBox="0 0 40 40" fill="none"><circle cx="20" cy="20" r="18" stroke="#1a1a1a" stroke-width="2"/><path d="M20 8 L28 15 L25 25 L15 25 L12 15 Z" fill="#e8dcc4" stroke="#1a1a1a" stroke-width="1.5"/><circle cx="20" cy="20" r="3" fill="#1a1a1a"/></svg><span>Salyq Calc</span></div>
+            <h2>Создать аккаунт</h2>
+            <p class="modal-subtitle">Зарегистрируйтесь бесплатно</p>
+            <div class="auth-alert" id="registerAlert" style="display:none;"></div>
+            <form id="registerForm" novalidate>
+                <div class="auth-field">
+                    <label for="regName">Имя и фамилия</label>
+                    <div class="input-wrap">
+                        <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                        <input type="text" id="regName" placeholder="Алихан Сейткали" autocomplete="name">
+                    </div>
+                    <span class="field-error" id="regNameErr"></span>
+                </div>
+                <div class="auth-field">
+                    <label for="regEmail">Email адрес</label>
+                    <div class="input-wrap">
+                        <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                        <input type="email" id="regEmail" placeholder="example@email.com" autocomplete="email">
+                    </div>
+                    <span class="field-error" id="regEmailErr"></span>
+                </div>
+                <div class="auth-field">
+                    <label for="regPassword">Пароль <small>(минимум 6 символов)</small></label>
+                    <div class="input-wrap">
+                        <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                        <input type="password" id="regPassword" placeholder="Придумайте пароль" autocomplete="new-password">
+                        <button type="button" class="toggle-pw" data-for="regPassword" title="Показать"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button>
+                    </div>
+                    <div class="strength-wrap" id="strengthWrap" style="display:none;">
+                        <div class="strength-bar"><div class="strength-fill" id="strengthFill"></div></div>
+                        <span class="strength-label" id="strengthLabel"></span>
+                    </div>
+                    <span class="field-error" id="regPasswordErr"></span>
+                </div>
+                <div class="auth-field">
+                    <label for="regConfirm">Подтвердите пароль</label>
+                    <div class="input-wrap">
+                        <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                        <input type="password" id="regConfirm" placeholder="Повторите пароль" autocomplete="new-password">
+                        <button type="button" class="toggle-pw" data-for="regConfirm" title="Показать"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button>
+                    </div>
+                    <span class="field-error" id="regConfirmErr"></span>
+                </div>
+                <button type="submit" class="btn-primary btn-auth" id="registerSubmit">
+                    <span class="btn-text">Создать аккаунт</span>
+                    <span class="btn-loader" style="display:none;"></span>
+                </button>
+            </form>
+            <p class="modal-switch">Уже есть аккаунт? <a href="#" id="switchToLogin">Войти</a></p>
+        </div>
+    </div>
+
+    <div id="toast" class="toast"></div>
+    <script src="js/auth.js"></script>
+</body>
+</html>
